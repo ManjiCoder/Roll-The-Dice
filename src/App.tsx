@@ -1,8 +1,9 @@
 /* eslint-disable prettier/prettier */
-import React, {PropsWithChildren} from 'react';
+import React, {PropsWithChildren, useState} from 'react';
 import {
   Image,
   ImageSourcePropType,
+  Pressable,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -26,21 +27,50 @@ type DiceProps = PropsWithChildren<{
 const Dice = ({imageUrl}: DiceProps): JSX.Element => {
   return (
     <View>
-      <Image
-        style={styles.diceImage}
-        source={{
-          uri: imageUrl,
-        }}
-      />
+      <Image style={styles.diceImage} source={imageUrl} />
     </View>
   );
 };
 
 function App(): JSX.Element {
+  const [diceImage, setDiceImage] = useState<ImageSourcePropType>(DiceOne);
+
+  const rollDiceOnTap = () => {
+    let randomNumber = Math.floor(Math.random() * 6) + 1;
+
+    switch (randomNumber) {
+      case 1:
+        setDiceImage(DiceOne);
+        break;
+      case 2:
+        setDiceImage(DiceTwo);
+        break;
+      case 3:
+        setDiceImage(DiceThree);
+        break;
+      case 4:
+        setDiceImage(DiceFour);
+        break;
+      case 5:
+        setDiceImage(DiceFive);
+        break;
+      case 6:
+        setDiceImage(DiceSix);
+        break;
+
+      default:
+        setDiceImage(DiceOne);
+        break;
+    }
+  };
+
   return (
     <SafeAreaView>
-      <View>
-        <Text>Roll The Dice</Text>
+      <View style={styles.container}>
+        <Dice imageUrl={diceImage} />
+        <Pressable onPress={() => rollDiceOnTap()}>
+          <Text style={styles.rollDiceBtnText}>Roll The Dice</Text>
+        </Pressable>
       </View>
     </SafeAreaView>
   );
@@ -51,7 +81,9 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#FFF2F2',
+    gap: 20,
+    // backgroundColor: '#FFF2F2',
+    minHeight: '100%',
     // backgroundColor: '#8EA7E9',
     // minHeight: '100%',
   },
