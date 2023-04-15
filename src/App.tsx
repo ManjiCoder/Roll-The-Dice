@@ -7,15 +7,24 @@ import {
   SafeAreaView,
   StyleSheet,
   Text,
+  Vibration,
   View,
 } from 'react-native';
-
+// import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import DiceOne from '../assets/One.png';
 import DiceTwo from '../assets/Two.png';
 import DiceThree from '../assets/Three.png';
 import DiceFour from '../assets/Four.png';
 import DiceFive from '../assets/Five.png';
 import DiceSix from '../assets/Six.png';
+
+import {trigger} from 'react-native-haptic-feedback';
+
+// optional
+const options = {
+  enableVibrateFallback: true,
+  ignoreAndroidSystemSettings: false,
+};
 
 // TS - Feature
 type DiceProps = PropsWithChildren<{
@@ -62,6 +71,10 @@ function App(): JSX.Element {
         setDiceImage(DiceOne);
         break;
     }
+
+    // ReactNativeHapticFeedback.trigger('impactLight', options);
+    trigger('impactMedium', options); // TODO
+    Vibration.vibrate(40);
   };
 
   return (
