@@ -7,7 +7,7 @@ import {
   SafeAreaView,
   StyleSheet,
   Text,
-  Vibration,
+  // Vibration,
   View,
 } from 'react-native';
 // import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
@@ -22,8 +22,8 @@ import {trigger} from 'react-native-haptic-feedback';
 
 // optional
 const options = {
-  enableVibrateFallback: true,
-  ignoreAndroidSystemSettings: false,
+  enableVibrateFallback: false,
+  ignoreAndroidSystemSettings: true,
 };
 
 // TS - Feature
@@ -74,7 +74,7 @@ function App(): JSX.Element {
 
     // ReactNativeHapticFeedback.trigger('impactLight', options);
     trigger('impactMedium', options); // TODO
-    Vibration.vibrate(40);
+    // Vibration.vibrate(40);
   };
 
   return (
